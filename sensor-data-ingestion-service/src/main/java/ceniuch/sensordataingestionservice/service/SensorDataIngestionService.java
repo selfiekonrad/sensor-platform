@@ -27,7 +27,7 @@ public class SensorDataIngestionService {
     public SensorDataResponseDto ingest(SensorRequest sensorRequest) {
 
 
-        SensorDataEvent sensorDataEvent = sensorDataMapper.toEvent(requestDto);
+        SensorDataEvent sensorDataEvent = sensorDataMapper.toEvent(sensorRequest.sensorData());
         sensorDataEvent.setEventId(UUID.randomUUID());
         sensorDataEvent.setEnqueuedAt(Instant.now());
 

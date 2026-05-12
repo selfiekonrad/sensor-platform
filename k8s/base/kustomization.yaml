@@ -1,0 +1,2 @@
+resources:
+  - sensor-data-ingestion-service/sensor-data-ingestion.yaml

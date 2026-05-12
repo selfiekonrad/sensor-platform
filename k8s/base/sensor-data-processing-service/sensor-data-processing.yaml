@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sensor-data-processing-service
+  labels:
+    app: sensor-data-processing-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sensor-data-processing-service
+  template:
+    metadata:
+      name: sensor-data-processing-service
+      labels:
+        app: sensor-data-processing-service
+    spec:
+      containers:
+        - name: sensor-data-processing-service
+          image: ghcr.io/selfiekonrad/sensor-data-processing-service:0.0.7
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5672
+              protocol: TCP
+          env:
+            - name: RABBIT_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: rabbit_host
+                  name: credentials-rabbitqm
+            - name: RABBIT_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: rabbit_port
+                  name: credentials-rabbitqm
+            - name: RABBIT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: rabbit_username
+                  name: credentials-rabbitqm
+            - name: RABBIT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: rabbit_password
+                  name: credentials-rabbitqm
+
+      restartPolicy: Always

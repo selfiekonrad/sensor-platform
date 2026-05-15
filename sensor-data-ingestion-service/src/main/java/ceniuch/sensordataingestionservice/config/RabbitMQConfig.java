@@ -38,7 +38,7 @@ public class RabbitMQConfig {
     public MessageConverter jsonToMapMessageConverter() {
         return new JacksonJsonMessageConverter(
                 "java.time.*",
-                "ceniuch.sensordataingestionservice.model.SensorDataEvent",
+                "com.ceniuch.db.model.SensorDataEvent",
                 "java.util.*",
                 "java.lang.*"
         );

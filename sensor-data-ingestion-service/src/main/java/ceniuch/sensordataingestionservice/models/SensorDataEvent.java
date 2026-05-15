@@ -1,4 +1,4 @@
-package ceniuch.sensordataprocessingservice.model;
+package ceniuch.sensordataingestionservice.models;
 
 import lombok.Getter;
 import lombok.Setter;

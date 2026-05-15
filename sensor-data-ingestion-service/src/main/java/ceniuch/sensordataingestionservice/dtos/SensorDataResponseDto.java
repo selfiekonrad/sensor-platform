@@ -1,4 +1,4 @@
-package ceniuch.sensordataingestionservice.model.dtos;
+package ceniuch.sensordataingestionservice.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

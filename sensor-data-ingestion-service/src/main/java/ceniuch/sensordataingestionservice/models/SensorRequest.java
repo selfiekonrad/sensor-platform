@@ -1,6 +1,4 @@
-package ceniuch.sensordataingestionservice.model;
-
-import ceniuch.sensordataingestionservice.model.dtos.SensorData;
+package ceniuch.sensordataingestionservice.models;
 
 public record SensorRequest(
         String apiKey,

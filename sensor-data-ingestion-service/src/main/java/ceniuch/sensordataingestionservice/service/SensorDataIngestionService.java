@@ -1,11 +1,10 @@
 package ceniuch.sensordataingestionservice.service;
 
 import ceniuch.sensordataingestionservice.config.RabbitMQConfig;
-import ceniuch.sensordataingestionservice.model.SensorDataEvent;
-import ceniuch.sensordataingestionservice.model.SensorRequest;
-import ceniuch.sensordataingestionservice.model.dtos.SensorData;
-import ceniuch.sensordataingestionservice.model.dtos.SensorDataResponseDto;
-import ceniuch.sensordataingestionservice.model.dtos.mappers.SensorDataMapper;
+import ceniuch.sensordataingestionservice.dtos.SensorDataResponseDto;
+import ceniuch.sensordataingestionservice.dtos.mappers.SensorDataMapper;
+import ceniuch.sensordataingestionservice.models.SensorDataEvent;
+import ceniuch.sensordataingestionservice.models.SensorRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;

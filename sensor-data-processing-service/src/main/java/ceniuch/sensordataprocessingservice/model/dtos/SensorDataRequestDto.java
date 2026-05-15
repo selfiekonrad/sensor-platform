@@ -1,7 +1,7 @@
 package ceniuch.sensordataprocessingservice.model.dtos;
 
-import ceniuch.sensordataprocessingservice.model.Unit;
 import jakarta.validation.constraints.NotNull;
+import ceniuch.sensordataingestionservice.models.Unit;
 
 import java.time.Instant;
 import java.util.UUID;

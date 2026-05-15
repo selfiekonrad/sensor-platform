@@ -36,9 +36,8 @@
         </dependency>
         <dependency>
             <groupId>com.ceniuch</groupId>
-            <artifactId>db-model</artifactId>
+            <artifactId>common</artifactId>
             <version>0.0.1</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

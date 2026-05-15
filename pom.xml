@@ -11,10 +11,11 @@
     <name>sensor-platform-bom</name>
 
     <modules>
+        <module>common</module>
+        <module>db-model</module>
         <module>sensor-data-ingestion-service</module>
         <module>sensor-data-processing-service</module>
         <module>sensor-management-service</module>
-        <module>db-model</module>
     </modules>
 
     <properties>

@@ -1,5 +1,7 @@
 volumes:
   data_sensor_platform:
+  data_rabbitmq:
+
 services:
   db_sensor_platform:
     image: mariadb
@@ -13,3 +15,15 @@ services:
       - data_sensor_platform:/var/lib/mysql
     ports:
       - "3306:3306"
+
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - data_rabbitmq:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"

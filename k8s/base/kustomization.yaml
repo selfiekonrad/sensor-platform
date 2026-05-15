@@ -1,2 +1,6 @@
 resources:
+  - credentials/credentials-rabbitqm.yaml
+  - credentials/credentials-db.yaml
   - sensor-data-ingestion-service/sensor-data-ingestion.yaml
+  - sensor-data-processing-service/sensor-data-processing.yaml
+  - sensor-management-service/sensor-management.yaml

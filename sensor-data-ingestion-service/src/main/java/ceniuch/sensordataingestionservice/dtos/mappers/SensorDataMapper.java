@@ -1,17 +1,24 @@
 package ceniuch.sensordataingestionservice.dtos.mappers;
 
-import ceniuch.sensordataingestionservice.models.SensorData;
-import ceniuch.sensordataingestionservice.models.SensorDataEvent;
+import ceniuch.sensordataingestionservice.models.SensorRequest;
+import com.ceniuch.common.events.SensorDataEvent;
 import org.springframework.stereotype.Component;
+
+import java.time.Instant;
+import java.util.UUID;
 
 @Component
 public class SensorDataMapper {
-    public SensorDataEvent toEvent(SensorData dto) {
-        SensorDataEvent sensorDataEvent = new SensorDataEvent();
-        sensorDataEvent.setSensorId(dto.sensorId());
-        sensorDataEvent.setValue(dto.value());
-        sensorDataEvent.setUnit(dto.unit());
-        sensorDataEvent.setTimestamp(dto.timestamp());
-        return sensorDataEvent;
+
+    public SensorDataEvent toEvent(SensorRequest request) {
+        SensorDataEvent event = new SensorDataEvent();
+        event.setEventId(UUID.randomUUID());
+        event.setSensorId(request.sensorData().sensorId());
+        event.setSensorType(request.sensorData().sensorType());
+        event.setValue(request.sensorData().value());
+        event.setUnit(request.sensorData().unit());
+        event.setTimestamp(request.sensorData().timestamp());
+        event.setEnqueuedAt(Instant.now());
+        return event;
     }
 }

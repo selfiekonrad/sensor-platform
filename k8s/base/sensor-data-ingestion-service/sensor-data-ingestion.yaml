@@ -20,7 +20,7 @@ spec:
           image: ghcr.io/selfiekonrad/sensor-data-ingestion-service:0.0.5
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - containerPort: 3435
               protocol: TCP
           env:
             - name: RABBIT_HOST
@@ -45,3 +45,19 @@ spec:
                   name: credentials-rabbitqm
 
       restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sensor-data-ingestion-service
+  labels:
+    app: sensor-data-ingestion-service
+spec:
+  type: ClusterIP
+  selector:
+    app: sensor-data-ingestion-service
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3435
+      protocol: TCP

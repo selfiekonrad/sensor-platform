@@ -1,11 +1,11 @@
 package com.ceniuch.db.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
-import jakarta.persistence.*;
-
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -14,9 +14,14 @@ public class Sensor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    private UUID id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(name = "api_key", nullable = false, unique = true)
     private String apiKey;
-    private Date created;
+
+    @Column(name = "created_at", nullable = false)
+    private Instant createdAt;
 }

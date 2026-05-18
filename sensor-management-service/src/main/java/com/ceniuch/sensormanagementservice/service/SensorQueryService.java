@@ -11,7 +11,6 @@ import com.ceniuch.sensormanagementservice.repository.AlertRepository;
 import com.ceniuch.sensormanagementservice.repository.SensorReadingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.Instant;

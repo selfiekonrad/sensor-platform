@@ -1,6 +1,5 @@
 package com.ceniuch.db.model;
 
-import com.ceniuch.common.Unit;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,11 +10,11 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(
-        name = "alert",
-        indexes = {
-                @Index(name = "idx_alert_sensor", columnList = "sensor_id"),
-                @Index(name = "idx_alert_resolved", columnList = "resolved, created_at")
-        }
+        name = "alert"//,
+        //indexes = {
+        //        @Index(name = "idx_alert_sensor", columnList = "sensor_id"),
+        //        @Index(name = "idx_alert_resolved", columnList = "resolved, created_at")
+        //}
 )
 public class Alert implements Serializable {
 

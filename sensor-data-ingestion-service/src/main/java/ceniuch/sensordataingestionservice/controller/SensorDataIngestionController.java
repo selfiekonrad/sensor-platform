@@ -4,12 +4,12 @@ import ceniuch.sensordataingestionservice.dtos.SensorDataResponseDto;
 import ceniuch.sensordataingestionservice.models.SensorData;
 import ceniuch.sensordataingestionservice.models.SensorRequest;
 import ceniuch.sensordataingestionservice.service.SensorDataIngestionService;
+import com.ceniuch.common.exceptions.SensorUnauthorizedException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/sensors")
@@ -31,7 +31,16 @@ public class SensorDataIngestionController {
         log.info("Received sensor data from sensor {} (forwardedFor={})", sensorData.sensorId(), xForwardedFor);
 
         SensorRequest sensorRequest = new SensorRequest(apiKey, xForwardedFor, sensorData);
-        SensorDataResponseDto response = sensorDataIngestionService.ingest(sensorRequest);
-        return ResponseEntity.accepted().body(response);
+
+        try {
+            SensorDataResponseDto response = sensorDataIngestionService.ingest(sensorRequest);
+            return ResponseEntity.accepted().body(response);
+
+        } catch (SensorUnauthorizedException e) {
+            log.error("Sensor Unauthorized Exception.", e);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+
     }
 }

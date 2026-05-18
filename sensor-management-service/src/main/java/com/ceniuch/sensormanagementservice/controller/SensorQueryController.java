@@ -21,6 +21,11 @@ public class SensorQueryController {
         this.queryService = queryService;
     }
 
+    @PostMapping("register")
+    public ResponseEntity<?> registerSensor() {
+
+    }
+
     @GetMapping("/sensors/{id}/current")
     public ResponseEntity<SensorReadingDto> current(@PathVariable UUID id) {
         return queryService.getCurrent(id)

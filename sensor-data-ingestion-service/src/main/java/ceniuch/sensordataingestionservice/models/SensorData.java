@@ -1,6 +1,6 @@
 package ceniuch.sensordataingestionservice.models;
 
-import com.ceniuch.common.Unit;
+import com.ceniuch.db.model.Unit;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.Instant;

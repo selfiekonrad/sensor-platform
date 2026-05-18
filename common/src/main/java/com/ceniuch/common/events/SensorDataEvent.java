@@ -1,6 +1,6 @@
 package com.ceniuch.common.events;
 
-import com.ceniuch.common.Unit;
+import com.ceniuch.db.model.Unit;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

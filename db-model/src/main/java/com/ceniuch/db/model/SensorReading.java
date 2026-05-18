@@ -1,6 +1,5 @@
 package com.ceniuch.db.model;
 
-import com.ceniuch.common.Unit;
 import jakarta.persistence.*;
 import lombok.Data;
 

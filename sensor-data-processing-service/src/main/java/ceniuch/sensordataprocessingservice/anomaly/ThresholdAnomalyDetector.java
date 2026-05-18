@@ -1,6 +1,5 @@
 package ceniuch.sensordataprocessingservice.anomaly;
 
-import com.ceniuch.common.Unit;
 import com.ceniuch.db.model.Alert;
 import com.ceniuch.db.model.AlertType;
 import com.ceniuch.db.model.SensorReading;

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EntityScan("com.ceniuch.db.model")
-@EnableJpaRepositories("ceniuch.sensordataprocessingservice.repository")
+//@EnableJpaRepositories("ceniuch.sensordataprocessingservice.repository")
 public class SensorDataProcessingServiceApplication {
 
     public static void main(String[] args) {

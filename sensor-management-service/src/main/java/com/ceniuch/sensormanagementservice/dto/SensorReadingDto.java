@@ -1,6 +1,6 @@
 package com.ceniuch.sensormanagementservice.dto;
 
-import com.ceniuch.common.Unit;
+import com.ceniuch.db.model.Unit;
 import com.ceniuch.db.model.SensorReading;
 
 import java.time.Instant;

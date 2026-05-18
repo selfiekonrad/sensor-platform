@@ -4,7 +4,10 @@ import ceniuch.sensordataingestionservice.config.RabbitMQConfig;
 import ceniuch.sensordataingestionservice.dtos.SensorDataResponseDto;
 import ceniuch.sensordataingestionservice.dtos.mappers.SensorDataMapper;
 import ceniuch.sensordataingestionservice.models.SensorRequest;
+import com.ceniuch.common.authentification.AuthentificationService;
 import com.ceniuch.common.events.SensorDataEvent;
+import com.ceniuch.common.exceptions.SensorUnauthorizedException;
+import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -17,13 +20,18 @@ public class SensorDataIngestionService {
 
     private final SensorDataMapper sensorDataMapper;
     private final RabbitTemplate rabbitTemplate;
+    private final AuthentificationService authentificationService;
 
-    public SensorDataIngestionService(SensorDataMapper sensorDataMapper, RabbitTemplate rabbitTemplate) {
+    public SensorDataIngestionService(SensorDataMapper sensorDataMapper, RabbitTemplate rabbitTemplate,
+                                      AuthentificationService authentificationService) {
         this.sensorDataMapper = sensorDataMapper;
         this.rabbitTemplate = rabbitTemplate;
+        this.authentificationService = authentificationService;
     }
 
-    public SensorDataResponseDto ingest(SensorRequest request) {
+    public SensorDataResponseDto ingest(SensorRequest request) throws SensorUnauthorizedException {
+        authenticateMessage(request);
+
         SensorDataEvent event = sensorDataMapper.toEvent(request);
 
         rabbitTemplate.convertAndSend(
@@ -39,6 +47,17 @@ public class SensorDataIngestionService {
                 event.getEventId().toString(),
                 "Data queued for processing",
                 Instant.now()
+        );
+    }
+
+    private void authenticateMessage(SensorRequest request) throws ValidationException, SensorUnauthorizedException {
+        if (request.apiKey() == null) {
+            throw new ValidationException("API Key is required");
+        }
+
+        authentificationService.authenticateSensor(
+                request.sensorData().sensorId(),
+                request.apiKey()
         );
     }
 }

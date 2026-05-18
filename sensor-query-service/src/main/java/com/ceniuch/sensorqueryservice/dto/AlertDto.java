@@ -1,8 +1,8 @@
-package com.ceniuch.sensormanagementservice.dto;
+package com.ceniuch.sensorqueryservice.dto;
 
-import com.ceniuch.db.model.Unit;
 import com.ceniuch.db.model.Alert;
 import com.ceniuch.db.model.AlertType;
+import com.ceniuch.db.model.Unit;
 
 import java.time.Instant;
 import java.util.UUID;

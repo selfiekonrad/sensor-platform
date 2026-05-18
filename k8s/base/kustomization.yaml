@@ -4,3 +4,4 @@ resources:
   - sensor-data-ingestion-service/sensor-data-ingestion.yaml
   - sensor-data-processing-service/sensor-data-processing.yaml
   - sensor-management-service/sensor-management.yaml
+  - sensor-query-service/sensor-query.yaml

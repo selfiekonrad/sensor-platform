@@ -1,10 +1,10 @@
 package ceniuch.sensordataingestionservice.service;
 
+import ceniuch.sensordataingestionservice.auth.SensorAuthClient;
 import ceniuch.sensordataingestionservice.config.RabbitMQConfig;
 import ceniuch.sensordataingestionservice.dtos.SensorDataResponseDto;
 import ceniuch.sensordataingestionservice.dtos.mappers.SensorDataMapper;
 import ceniuch.sensordataingestionservice.models.SensorRequest;
-import com.ceniuch.common.authentification.AuthentificationService;
 import com.ceniuch.common.events.SensorDataEvent;
 import com.ceniuch.common.exceptions.SensorUnauthorizedException;
 import jakarta.validation.ValidationException;
@@ -20,13 +20,13 @@ public class SensorDataIngestionService {
 
     private final SensorDataMapper sensorDataMapper;
     private final RabbitTemplate rabbitTemplate;
-    private final AuthentificationService authentificationService;
+    private final SensorAuthClient sensorAuthClient;
 
     public SensorDataIngestionService(SensorDataMapper sensorDataMapper, RabbitTemplate rabbitTemplate,
-                                      AuthentificationService authentificationService) {
+                                      SensorAuthClient sensorAuthClient) {
         this.sensorDataMapper = sensorDataMapper;
         this.rabbitTemplate = rabbitTemplate;
-        this.authentificationService = authentificationService;
+        this.sensorAuthClient = sensorAuthClient;
     }
 
     public SensorDataResponseDto ingest(SensorRequest request) throws SensorUnauthorizedException {
@@ -55,7 +55,7 @@ public class SensorDataIngestionService {
             throw new ValidationException("API Key is required");
         }
 
-        authentificationService.authenticateSensor(
+        sensorAuthClient.validate(
                 request.sensorData().sensorId(),
                 request.apiKey()
         );

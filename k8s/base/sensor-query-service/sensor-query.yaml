@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sensor-query-service
+  labels:
+    app: sensor-query-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sensor-query-service
+  template:
+    metadata:
+      name: sensor-query-service
+      labels:
+        app: sensor-query-service
+    spec:
+      containers:
+        - name: sensor-query-service
+          image: ghcr.io/selfiekonrad/sensor-query-service:0.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8082
+              protocol: TCP
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: db_url
+                  name: credentials-db
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: db_username
+                  name: credentials-db
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: db_password
+                  name: credentials-db
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sensor-query-service
+  labels:
+    app: sensor-query-service
+spec:
+  type: ClusterIP
+  selector:
+    app: sensor-query-service
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8082
+      protocol: TCP

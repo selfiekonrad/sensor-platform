@@ -16,6 +16,7 @@
         <module>sensor-data-ingestion-service</module>
         <module>sensor-data-processing-service</module>
         <module>sensor-management-service</module>
+        <module>sensor-query-service</module>
     </modules>
 
     <properties>

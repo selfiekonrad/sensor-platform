@@ -1,4 +1,4 @@
-package com.ceniuch.sensormanagementservice.repository;
+package com.ceniuch.sensorqueryservice.repository;
 
 import com.ceniuch.db.model.SensorReading;
 import org.springframework.data.jpa.repository.JpaRepository;

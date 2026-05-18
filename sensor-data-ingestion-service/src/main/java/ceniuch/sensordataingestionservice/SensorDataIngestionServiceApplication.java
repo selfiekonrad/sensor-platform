@@ -2,20 +2,12 @@ package ceniuch.sensordataingestionservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.hibernate.autoconfigure.HibernateJpaAutoConfiguration;
-import org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(
-        exclude = {
-                DataSourceAutoConfiguration.class,
-                HibernateJpaAutoConfiguration.class
-        }
-)
+@SpringBootApplication()
 @EnableJpaRepositories(basePackages = {
-        "com.ceniuch.common.db",
-        "ceniuch.sensordataingestionservice.repository"
+        "com.ceniuch.common.db"
 })
 @EntityScan(basePackages = {
         "com.ceniuch.db.model"

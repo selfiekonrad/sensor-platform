@@ -30,22 +30,17 @@ public class SensorQueryService {
 
     public SensorRegistryResponseDto registerSensor(SensorRegistryData sensorRegistryData) {
 
-        String encryptedKey = encryptionService.encryptKeyForDb(generateApiKey());
-
         Sensor sensor = new Sensor();
-        sensor.setSensorType(sensorRegistryData.Type());
-        sensor.setId(UUID.randomUUID());
+        sensor.setSensorType(sensorRegistryData.type());
         sensor.setName(sensorRegistryData.name());
-        sensor.setApiKey(encryptedKey);
+        sensor.setApiKey(encryptionService.encryptKeyForDb(generateApiKey()));
         sensor.setCreatedAt(Instant.now());
-
-        SensorRegistryResponseDto sensorRegistryResponseDto = new SensorRegistryResponseDto(
-                sensor.getId(), sensor.getApiKey(), sensor.getCreatedAt()
-        );
 
         sensorRepository.save(sensor);
 
-        return sensorRegistryResponseDto;
+        return new SensorRegistryResponseDto(
+                sensor.getId(), encryptionService.decryptKeyFromDb(sensor.getApiKey()), sensor.getCreatedAt()
+        );
     }
 
     private String generateApiKey() {

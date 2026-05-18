@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public record SensorRegistryData(
         String name,
-        UUID Type
+        UUID type
 ) {
 }

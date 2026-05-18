@@ -2,7 +2,11 @@ package com.ceniuch.sensormanagementservice.controller;
 
 import com.ceniuch.sensormanagementservice.dto.AlertDto;
 import com.ceniuch.sensormanagementservice.dto.SensorReadingDto;
+import com.ceniuch.sensormanagementservice.dto.SensorRegistryResponseDto;
+import com.ceniuch.sensormanagementservice.model.SensorRegistryData;
 import com.ceniuch.sensormanagementservice.service.SensorQueryService;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class SensorQueryController {
 
     private final SensorQueryService queryService;
@@ -21,9 +26,16 @@ public class SensorQueryController {
         this.queryService = queryService;
     }
 
-    @PostMapping("register")
-    public ResponseEntity<?> registerSensor() {
+    @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SensorRegistryResponseDto> registerSensor(
+            @Valid @RequestBody SensorRegistryData sensorRegistryData,
+            @RequestHeader(value = "X-Forwarded-For", required = false) String xForwardedFor
+    ) {
+        log.info("Received request to register sensor data: {} from {}", sensorRegistryData,  xForwardedFor);
 
+        SensorRegistryResponseDto sensorRegistryResponseDto =  queryService.registerSensor(sensorRegistryData);
+
+        return ResponseEntity.ok(sensorRegistryResponseDto);
     }
 
     @GetMapping("/sensors/{id}/current")

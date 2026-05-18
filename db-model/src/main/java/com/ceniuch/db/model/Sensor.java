@@ -22,6 +22,9 @@ public class Sensor implements Serializable {
     @Column(name = "api_key", nullable = false, unique = true)
     private String apiKey;
 
+    @Column(nullable = false)
+    private UUID sensorType;
+
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 }

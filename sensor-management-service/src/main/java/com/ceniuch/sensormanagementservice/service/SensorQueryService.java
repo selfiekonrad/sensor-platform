@@ -1,27 +1,61 @@
 package com.ceniuch.sensormanagementservice.service;
 
+import com.ceniuch.common.db.SensorRepository;
+import com.ceniuch.common.encryption.EncryptionService;
+import com.ceniuch.db.model.Sensor;
 import com.ceniuch.sensormanagementservice.dto.AlertDto;
 import com.ceniuch.sensormanagementservice.dto.SensorReadingDto;
+import com.ceniuch.sensormanagementservice.dto.SensorRegistryResponseDto;
+import com.ceniuch.sensormanagementservice.model.SensorRegistryData;
 import com.ceniuch.sensormanagementservice.repository.AlertRepository;
 import com.ceniuch.sensormanagementservice.repository.SensorReadingRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.SecureRandom;
 import java.time.Instant;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@Transactional(readOnly = true)
+@AllArgsConstructor
 public class SensorQueryService {
 
     private final SensorReadingRepository readingRepository;
     private final AlertRepository alertRepository;
+    private final EncryptionService encryptionService;
+    private final SensorRepository sensorRepository;
 
-    public SensorQueryService(SensorReadingRepository readingRepository, AlertRepository alertRepository) {
-        this.readingRepository = readingRepository;
-        this.alertRepository = alertRepository;
+    public SensorRegistryResponseDto registerSensor(SensorRegistryData sensorRegistryData) {
+
+        String encryptedKey = encryptionService.encryptKeyForDb(generateApiKey());
+
+        Sensor sensor = new Sensor();
+        sensor.setSensorType(sensorRegistryData.Type());
+        sensor.setId(UUID.randomUUID());
+        sensor.setName(sensorRegistryData.name());
+        sensor.setApiKey(encryptedKey);
+        sensor.setCreatedAt(Instant.now());
+
+        SensorRegistryResponseDto sensorRegistryResponseDto = new SensorRegistryResponseDto(
+                sensor.getId(), sensor.getApiKey(), sensor.getCreatedAt()
+        );
+
+        sensorRepository.save(sensor);
+
+        return sensorRegistryResponseDto;
+    }
+
+    private String generateApiKey() {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] bytes = new byte[32];
+        secureRandom.nextBytes(bytes);
+        return Base64.getUrlEncoder()
+                .withoutPadding()
+                .encodeToString(bytes);
     }
 
     public Optional<SensorReadingDto> getCurrent(UUID sensorId) {

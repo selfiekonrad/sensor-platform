@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+
 @RestController
 @RequestMapping("/api/sensors")
 @Slf4j
@@ -20,9 +22,12 @@ public class SensorDataIngestionController {
 
     public SensorDataIngestionController(SensorDataIngestionService sensorDataIngestionService) {
         this.sensorDataIngestionService = sensorDataIngestionService;
+
+        log.info("{}", Instant.now().toString());
+
     }
 
-    @PostMapping(value = "/{sensorId}/data", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/data", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SensorDataResponseDto> ingestSensorData(
             @Valid @RequestBody SensorData sensorData,
             @RequestHeader(value = "X-SDS-API-Key") String apiKey,

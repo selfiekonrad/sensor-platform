@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface SensorRepository extends JpaRepository<Sensor, UUID> {
+
 }

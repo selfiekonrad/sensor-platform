@@ -6,6 +6,7 @@ import ceniuch.sensordataprocessingservice.repository.AlertRepository;
 import ceniuch.sensordataprocessingservice.repository.SensorReadingRepository;
 import com.ceniuch.common.events.SensorDataEvent;
 import com.ceniuch.db.model.SensorReading;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
@@ -15,20 +16,12 @@ import java.time.Instant;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class SensorDataProcessingService {
 
     private final SensorReadingRepository readingRepository;
     private final AlertRepository alertRepository;
     private final ThresholdAnomalyDetector anomalyDetector;
-
-    public SensorDataProcessingService(
-            SensorReadingRepository readingRepository,
-            AlertRepository alertRepository,
-            ThresholdAnomalyDetector anomalyDetector) {
-        this.readingRepository = readingRepository;
-        this.alertRepository = alertRepository;
-        this.anomalyDetector = anomalyDetector;
-    }
 
     @Transactional
     @RabbitListener(queues = RabbitMQConfig.SENSOR_QUEUE)

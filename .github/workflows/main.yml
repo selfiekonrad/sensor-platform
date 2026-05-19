@@ -1,0 +1,56 @@
+name: Build and Push Native Images
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write 
+    
+    strategy:
+      matrix:
+        service: 
+          - sensor-data-ingestion-service
+          - sensor-data-processing-service
+          - sensor-management-service
+          - sensor-query-service
+      fail-fast: false
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25' 
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get Project Version
+        id: get_version
+        run: |
+          # Grabbing version from the specific module (or the root pom)
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl ${{ matrix.service }})
+          echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Build Native Image with Paketo for ${{ matrix.service }}
+        run: |
+          # Use -pl to target the specific module and its dependencies
+          mvn clean spring-boot:build-image -pl ${{ matrix.service }} -am \
+            -Dspring-boot.build-image.imageName=ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.APP_VERSION }}
+
+      - name: Push Image to GHCR for ${{ matrix.service }}
+        run: docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.APP_VERSION }}

@@ -28,7 +28,7 @@ jobs:
         uses: dorny/paths-filter@v3
         id: filter
         with:
-          filter: |
+          filters: |
             sensor-data-ingestion-service:
               - 'sensor-data-ingestion-service/**'
               - 'common/**'

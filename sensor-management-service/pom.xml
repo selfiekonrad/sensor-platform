@@ -78,7 +78,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <mainClass>ceniuch.sensordataingestionservice.SensorDataIngestionServiceApplication</mainClass>
+                            <mainClass>com.ceniuch.sensormanagementservice.SensorManagementServiceApplication</mainClass>
                         </configuration>
                     </plugin>
                 </plugins>

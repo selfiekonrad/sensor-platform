@@ -3,18 +3,17 @@ name: Build and Push Native Images
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write 
+    outputs:
+      services: ${{ steps.filter.outputs.changes }}
     
     strategy:
       matrix:
-        service: 
+        service:
           - sensor-data-ingestion-service
           - sensor-data-processing-service
           - sensor-management-service
@@ -25,10 +24,50 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Check for file changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filter: |
+            sensor-data-ingestion-service:
+              - 'sensor-data-ingestion-service/**'
+              - 'common/**'
+              - 'db-model/**'
+              - 'pom.xml'
+            sensor-data-processing-service:
+              - 'sensor-data-processing-service/**'
+              - 'common/**'
+              - 'db-model/**'
+              - 'pom.xml'
+            sensor-management-service:
+              - 'sensor-management-service/**'
+              - 'common/**'
+              - 'db-model/**'
+              - 'pom.xml'
+            sensor-query-service:
+              - 'sensor-query-service/**'
+              - 'common/**'
+              - 'db-model/**'
+              - 'pom.xml'
+
+  build:
+    needs: setup
+    if: ${{ needs.setup.outputs.services != '[]' && needs.setup.outputs.services != '' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    strategy:
+      matrix:
+        service: ${{ fromJSON(needs.setup.outputs.services) }}
+      fail-fast: false
+
+    steps:
       - name: Set up GraalVM JDK
         uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '25' 
+          java-version: '25'
           distribution: 'graalvm'
           cache: 'maven'
 
@@ -53,11 +92,11 @@ jobs:
         run: |
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl ${{ matrix.service }})
           echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
-      
+
       - name: Install all modules
         run: |
-         mvn install -DskipTests
-            
+          mvn install -DskipTests
+
       - name: Build Native Image for ${{ matrix.service }}
         run: |
           mvn spring-boot:build-image -pl ${{ matrix.service }} -P native -DskipTests \

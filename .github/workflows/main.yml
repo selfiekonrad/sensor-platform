@@ -51,7 +51,7 @@ jobs:
             
       - name: Build Native Image for ${{ matrix.service }}
         run: |
-          mvn spring-boot:build-image -pl ${{ matrix.service }} -P native \
+          mvn spring-boot:build-image -pl ${{ matrix.service }} -P native -DskipTests \
              -Dspring-boot.build-image.imageName=ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.APP_VERSION }}
 
       - name: Push Image to GHCR for ${{ matrix.service }}

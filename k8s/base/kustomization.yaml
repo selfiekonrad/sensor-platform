@@ -1,3 +1,5 @@
+namespace: sensor-platform
+
 resources:
   - credentials/credentials-rabbitqm.yaml
   - credentials/credentials-db.yaml

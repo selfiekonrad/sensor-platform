@@ -47,7 +47,7 @@ jobs:
       
       - name: Install all modules
         run: |
-         mvn isntall -DskipTests
+         mvn install -DskipTests
             
       - name: Build Native Image for ${{ matrix.service }}
         run: |

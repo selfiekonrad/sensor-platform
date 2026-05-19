@@ -25,11 +25,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
+      - name: Set up GraalVM JDK
+        uses: graalvm/setup-graalvm@v1
         with:
           java-version: '25' 
-          distribution: 'temurin'
+          distribution: 'graalvm'
           cache: 'maven'
 
       - name: Log in to GitHub Container Registry
@@ -42,15 +42,14 @@ jobs:
       - name: Get Project Version
         id: get_version
         run: |
-          # Grabbing version from the specific module (or the root pom)
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl ${{ matrix.service }})
           echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Build Native Image with Paketo for ${{ matrix.service }}
+      - name: Build Native Image for ${{ matrix.service }}
         run: |
-          # Use -pl to target the specific module and its dependencies
-          mvn clean spring-boot:build-image -pl ${{ matrix.service }} -am \
-            -Dspring-boot.build-image.imageName=ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.APP_VERSION }}
+          mvn spring-boot:build-image -pl ${{ matrix.service }} -P native \
+             -Dspring-boot.build-image.imageName=ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.APP_VERSION }}
+
 
       - name: Push Image to GHCR for ${{ matrix.service }}
         run: docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.APP_VERSION }}

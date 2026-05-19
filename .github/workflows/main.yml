@@ -44,12 +44,15 @@ jobs:
         run: |
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl ${{ matrix.service }})
           echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
-
+      
+      - name: Install all modules
+        run: |
+         mvn isntall -DskipTests
+            
       - name: Build Native Image for ${{ matrix.service }}
         run: |
           mvn spring-boot:build-image -pl ${{ matrix.service }} -P native \
              -Dspring-boot.build-image.imageName=ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.APP_VERSION }}
-
 
       - name: Push Image to GHCR for ${{ matrix.service }}
         run: docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.service }}:${{ env.APP_VERSION }}

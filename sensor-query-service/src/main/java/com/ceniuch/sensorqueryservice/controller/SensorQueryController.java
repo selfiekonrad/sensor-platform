@@ -28,7 +28,7 @@ public class SensorQueryController {
     }
 
     @GetMapping("/sensors/{id}/current")
-    public ResponseEntity<SensorReadingDto> current(@PathVariable UUID id) {
+    public ResponseEntity<SensorReadingDto> current(@PathVariable("id") UUID id) {
         return queryService.getCurrent(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -36,9 +36,9 @@ public class SensorQueryController {
 
     @GetMapping("/sensors/{id}/history")
     public List<SensorReadingDto> history(
-            @PathVariable UUID id,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant from,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant to) {
+            @PathVariable("id") UUID id,
+            @RequestParam("from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant from,
+            @RequestParam("to") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant to) {
         return queryService.getHistory(id, from, to);
     }
 

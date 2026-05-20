@@ -1,6 +1,7 @@
 namespace: sensor-platform
 
 resources:
+  - definition.yaml
   - credentials/credentials-rabbitqm.yaml
   - credentials/credentials-db.yaml
   - sensor-data-ingestion-service/sensor-data-ingestion.yaml

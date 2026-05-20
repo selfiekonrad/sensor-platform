@@ -44,7 +44,7 @@ spec:
                   key: rabbit_password
                   name: credentials-rabbitqm
             - name: MANAGEMENT_SERVICE_URL
-              value: sensor-management-service
+              value: http://sensor-management-service
 
       restartPolicy: Always
 ---

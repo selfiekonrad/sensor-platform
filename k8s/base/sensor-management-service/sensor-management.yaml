@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: sensor-management-service
-          image: ghcr.io/selfiekonrad/sensor-management-service:0.0.1-snapshot
+          image: ghcr.io/selfiekonrad/sensor-management-service:0.0.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081

@@ -7,3 +7,4 @@ resources:
   - sensor-data-processing-service/sensor-data-processing.yaml
   - sensor-management-service/sensor-management.yaml
   - sensor-query-service/sensor-query.yaml
+  - db/maria-db.yaml

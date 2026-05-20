@@ -11,7 +11,7 @@
 
     <groupId>ceniuch</groupId>
     <artifactId>sensor-query-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>sensor-query-service</name>
     <description>sensor-query-service</description>
 

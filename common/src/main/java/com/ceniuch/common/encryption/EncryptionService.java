@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.google.crypto.tink.DeterministicAead;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
@@ -26,7 +27,7 @@ public class EncryptionService {
     public EncryptionService() throws GeneralSecurityException, IOException {
         DeterministicAeadConfig.register();
         KeysetHandle keysetHandle = CleartextKeysetHandle.read(JsonKeysetReader.withInputStream(
-                new FileInputStream("common/src/main/java/com/ceniuch/common/encryption/api_key_keyset.json")));
+                new ClassPathResource("api_key_keyset.json").getInputStream()));
 
         deterministicAead = keysetHandle.getPrimitive(RegistryConfiguration.get(), DeterministicAead.class);
     }

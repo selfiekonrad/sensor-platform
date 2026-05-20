@@ -11,7 +11,7 @@
 
     <groupId>ceniuch</groupId>
     <artifactId>sensor-management-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>sensor-management-service</name>
     <description>sensor-management-service</description>
 

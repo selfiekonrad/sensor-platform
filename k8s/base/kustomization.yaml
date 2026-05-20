@@ -9,3 +9,4 @@ resources:
   - sensor-management-service/sensor-management.yaml
   - sensor-query-service/sensor-query.yaml
   - db/maria-db.yaml
+  - networking/gateway.yaml

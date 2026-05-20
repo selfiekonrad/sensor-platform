@@ -60,6 +60,6 @@ spec:
     app: sensor-data-ingestion-service
   ports:
     - name: http
-      port: 80
+      port: 3435
       targetPort: 3435
       protocol: TCP

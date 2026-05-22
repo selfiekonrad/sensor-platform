@@ -1,6 +1,6 @@
 package com.ceniuch.sensormanagementservice.service;
 
-import com.ceniuch.common.authentification.AuthentificationService;
+import com.ceniuch.common.authentication.AuthenticationService;
 import com.ceniuch.common.db.SensorRepository;
 import com.ceniuch.common.encryption.EncryptionService;
 import com.ceniuch.common.exceptions.SensorUnauthorizedException;
@@ -21,7 +21,7 @@ public class SensorRegistrationService {
 
     private final EncryptionService encryptionService;
     private final SensorRepository sensorRepository;
-    private final AuthentificationService authentificationService;
+    private final AuthenticationService authenticationService;
 
     public SensorRegistryResponseDto registerSensor(SensorRegistryData sensorRegistryData) {
         String plainApiKey = generateApiKey();
@@ -38,7 +38,7 @@ public class SensorRegistrationService {
     }
 
     public void validateApiKey(UUID sensorId, String apiKey) throws SensorUnauthorizedException {
-        authentificationService.authenticateSensor(sensorId, apiKey);
+        authenticationService.authenticateSensor(sensorId, apiKey);
     }
 
     private String generateApiKey() {

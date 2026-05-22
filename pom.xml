@@ -6,7 +6,7 @@
 
     <groupId>com.ceniuch</groupId>
     <artifactId>sensor-platform-bom</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
     <name>sensor-platform-bom</name>
 
@@ -39,6 +39,16 @@
                 <groupId>com.google.crypto.tink</groupId>
                 <artifactId>tink</artifactId>
                 <version>1.17.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ceniuch</groupId>
+                <artifactId>common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ceniuch</groupId>
+                <artifactId>db-model</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

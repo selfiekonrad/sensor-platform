@@ -11,7 +11,7 @@ export const options = {
 export default function () {
     const payload = JSON.stringify({
         sensorId: "8b6106bb-917e-4593-88f2-d9159ab18228",
-        sensorType: "e58ed763-928c-4155-bee9-fdbaaadc15f3",
+        sensorType: "TEMPERATURE",
         value: 23.5,
         unit: "CELSIUS",
         timestamp: "2026-05-20T12:00:00.000Z"

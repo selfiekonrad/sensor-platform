@@ -9,9 +9,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>ceniuch</groupId>
+    <groupId>com.ceniuch</groupId>
     <artifactId>sensor-query-service</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.1</version>
     <name>sensor-query-service</name>
     <description>sensor-query-service</description>
 
@@ -19,6 +19,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -35,7 +39,6 @@
         <dependency>
             <groupId>com.ceniuch</groupId>
             <artifactId>db-model</artifactId>
-            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>

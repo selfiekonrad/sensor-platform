@@ -28,8 +28,9 @@ public class SensorReading implements Serializable {
     @Column(name = "sensor_id", nullable = false)
     private UUID sensorId;
 
-    @Column(name = "sensor_type")
-    private UUID sensorType;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sensor_type", length = 32)
+    private SensorType sensorType;
 
     @Column(nullable = false)
     private Float value;

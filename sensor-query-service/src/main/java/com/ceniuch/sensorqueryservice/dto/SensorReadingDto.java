@@ -1,6 +1,7 @@
 package com.ceniuch.sensorqueryservice.dto;
 
 import com.ceniuch.db.model.SensorReading;
+import com.ceniuch.db.model.SensorType;
 import com.ceniuch.db.model.Unit;
 
 import java.time.Instant;
@@ -9,7 +10,7 @@ import java.util.UUID;
 public record SensorReadingDto(
         UUID id,
         UUID sensorId,
-        UUID sensorType,
+        SensorType sensorType,
         Float value,
         Unit unit,
         Instant timestamp,

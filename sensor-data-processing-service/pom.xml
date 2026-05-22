@@ -10,9 +10,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>ceniuch</groupId>
+    <groupId>com.ceniuch</groupId>
     <artifactId>sensor-data-processing-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>sensor-data-processing-service</name>
     <description>sensor-data-processing-service</description>
 
@@ -20,6 +20,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -40,12 +44,10 @@
         <dependency>
             <groupId>com.ceniuch</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.ceniuch</groupId>
             <artifactId>db-model</artifactId>
-            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.amqp</groupId>
@@ -88,7 +90,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <mainClass>ceniuch.sensordataprocessingservice.SensorDataProcessingServiceApplication</mainClass>
+                            <mainClass>com.ceniuch.sensordataprocessingservice.SensorDataProcessingServiceApplication</mainClass>
                         </configuration>
                     </plugin>
                 </plugins>

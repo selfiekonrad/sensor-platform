@@ -1,9 +1,9 @@
 package com.ceniuch.sensormanagementservice.model;
 
-import java.util.UUID;
+import com.ceniuch.db.model.SensorType;
 
 public record SensorRegistryData(
         String name,
-        UUID type
+        SensorType type
 ) {
 }

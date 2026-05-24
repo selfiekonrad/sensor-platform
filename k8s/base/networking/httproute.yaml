@@ -14,4 +14,11 @@ spec:
             value: /
       backendRefs:
         - name: sensor-data-ingestion-service
-          port: 3435
+          port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /api/register
+      backendRefs:
+        - name: sensor-management-service
+          port: 81

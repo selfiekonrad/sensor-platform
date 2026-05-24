@@ -16,6 +16,7 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
+import static org.hamcrest.Matchers.containsString;
 
 class SensorAuthClientTest {
 
@@ -35,8 +36,8 @@ class SensorAuthClientTest {
         server.expect(requestTo("http://localhost:8081/api/validate"))
                 .andExpect(method(org.springframework.http.HttpMethod.POST))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("\"sensorId\":\"" + sensorId + "\"")))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("\"apiKey\":\"valid-key\"")))
+                .andExpect(content().string(containsString("\"sensorId\":\"" + sensorId + "\"")))
+                .andExpect(content().string(containsString("\"apiKey\":\"valid-key\"")))
                 .andRespond(withStatus(HttpStatus.NO_CONTENT));
 
         assertThatCode(() -> client.validate(sensorId, "valid-key"))

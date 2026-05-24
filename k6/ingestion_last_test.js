@@ -33,3 +33,7 @@ export default function () {
     check(res, { "status is 202": (r) => r.status === 202 });
     sleep(1);
 }
+
+export function register_sensors() {
+
+}

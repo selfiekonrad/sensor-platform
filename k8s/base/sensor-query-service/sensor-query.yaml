@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: sensor-query-service
-          image: ghcr.io/selfiekonrad/sensor-query-service:0.0.2
+          image: ghcr.io/selfiekonrad/sensor-query-service:0.0.3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082

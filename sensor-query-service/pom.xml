@@ -5,13 +5,11 @@
     <parent>
         <groupId>com.ceniuch</groupId>
         <artifactId>sensor-platform-bom</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.ceniuch</groupId>
     <artifactId>sensor-query-service</artifactId>
-    <version>0.0.1</version>
     <name>sensor-query-service</name>
     <description>sensor-query-service</description>
 

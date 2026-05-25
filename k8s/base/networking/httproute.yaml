@@ -11,7 +11,7 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /
+            value: /api/sensors/data
       backendRefs:
         - name: sensor-data-ingestion-service
           port: 80

@@ -40,7 +40,7 @@ public class SensorDataIngestionService {
                 event
         );
 
-        log.debug("Enqueued sensor event {} for sensor {}", event.getEventId(), event.getSensorId());
+        log.info("Enqueued sensor event {} for sensor {}", event.getEventId(), event.getSensorId());
 
         return new SensorDataResponseDto(
                 "ACCEPTED",

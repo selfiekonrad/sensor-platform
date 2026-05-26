@@ -22,9 +22,6 @@ public class SensorDataIngestionController {
 
     public SensorDataIngestionController(SensorDataIngestionService sensorDataIngestionService) {
         this.sensorDataIngestionService = sensorDataIngestionService;
-
-        log.info("{}", Instant.now().toString());
-
     }
 
     @PostMapping(value = "/data", consumes = "application/json", produces = "application/json")

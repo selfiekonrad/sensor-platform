@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.ceniuch</groupId>
         <artifactId>sensor-platform-bom</artifactId>
-        <version>0.0.3</version>
+        <version>0.0.4</version>
     </parent>
 
     <artifactId>db-model</artifactId>

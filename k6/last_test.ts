@@ -4,8 +4,13 @@ import http from 'k6/http';
 import { Sensor, SensorType } from './types.ts';
 
 const register_url = 'http://sensor-platform.local:54101/api/register';
+const threshold_url = 'http://sensor-platform.local:54101/api/threshold';
 const ingest_url = 'http://sensor-platform.local:54101/api/sensors/data';
 const sensor_send_amount = 100;
+
+const TEMPERATURE_LOW = 10;
+const TEMPERATURE_HIGH = 30;
+const ANOMALY_PROBABILITY = 0.1;
 
 export let options:Options = {
     vus: 5,
@@ -21,6 +26,7 @@ export let options:Options = {
 // data to the platform.
 export default () => {
     const sensor: Sensor = register_temperature_sensor();
+    seed_threshold(sensor, TEMPERATURE_LOW, TEMPERATURE_HIGH);
 
     for (let i = 0; i < sensor_send_amount; i++) {
         send_random_sensor_data(sensor);
@@ -28,11 +34,38 @@ export default () => {
     }
 };
 
+function next_value(): number {
+    if (Math.random() < ANOMALY_PROBABILITY) {
+        return Math.random() < 0.5
+            ? TEMPERATURE_LOW - (1 + Math.random() * 5)
+            : TEMPERATURE_HIGH + (1 + Math.random() * 5);
+    }
+    return TEMPERATURE_LOW + Math.random() * (TEMPERATURE_HIGH - TEMPERATURE_LOW);
+}
+
+function seed_threshold(sensor: Sensor, low: number, high: number) {
+    const payload = JSON.stringify({
+        sensorId: sensor.id,
+        lowThreshold: low,
+        highThreshold: high,
+    });
+
+    const res = http.post(threshold_url, payload, {
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    check(res, { "threshold seeded": (r) => r.status === 200 });
+
+    if (res.status !== 200) {
+        console.log(`Failed to seed threshold for sensor ${sensor.id}, status: ${res.status}`);
+    }
+}
+
 function send_random_sensor_data(sensor: Sensor) {
     const payload = JSON.stringify({
         sensorId: sensor.id,
         sensorType: sensor.sensorType,
-        value: 1,
+        value: next_value(),
         unit: "CELSIUS",
         timestamp: new Date().toISOString()
     });

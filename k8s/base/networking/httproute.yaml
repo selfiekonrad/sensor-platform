@@ -22,3 +22,10 @@ spec:
       backendRefs:
         - name: sensor-management-service
           port: 81
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /api/threshold
+      backendRefs:
+        - name: sensor-management-service
+          port: 81

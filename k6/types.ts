@@ -1,9 +1,9 @@
 export type Sensor = {
-    id: String,
-    name: String,
+    id: string,
+    name: string,
     apiKey: string,
     sensorType: SensorType,
-    createdAt: String
+    createdAt: string
 }
 
 export enum SensorType {

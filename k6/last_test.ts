@@ -12,10 +12,9 @@ const TEMPERATURE_LOW = 10;
 const TEMPERATURE_HIGH = 30;
 const ANOMALY_PROBABILITY = 0.1;
 
-export let options:Options = {
-    vus: 5,
-    duration: '10s',
-    iterations: 5,
+export let options:Options#£ = {
+    vus: 70,
+    iterations: 100,
     hosts: {
         'sensor-platform.local': '127.0.0.1',
     },
@@ -30,7 +29,7 @@ export default () => {
 
     for (let i = 0; i < sensor_send_amount; i++) {
         send_random_sensor_data(sensor);
-        sleep(1);
+        //sleep(1);
     }
 };
 
@@ -83,9 +82,9 @@ function send_random_sensor_data(sensor: Sensor) {
         params
     );
 
-    check(res, { "status is 200": (r) => r.status === 200 });
+    check(res, { "status is 202": (r) => r.status === 202 });
 
-    if (res.status === 200) {
+    if (res.status === 202) {
         console.log(`Sent data for sensor ID: ${sensor.id}`);
     } else {
         console.log(`Failed to send data for sensor ID: ${sensor.id}, status: ${res.status}`);

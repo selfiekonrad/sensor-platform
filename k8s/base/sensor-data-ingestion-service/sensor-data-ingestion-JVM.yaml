@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sensor-data-ingestion-service
+  labels:
+    app: sensor-data-ingestion-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sensor-data-ingestion-service
+  template:
+    metadata:
+      name: sensor-data-ingestion-service
+      labels:
+        app: sensor-data-ingestion-service
+    spec:
+      containers:
+        - name: sensor-data-ingestion-service
+          image: ghcr.io/selfiekonrad/sensor-data-ingestion-service:0.0.3
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3435
+              protocol: TCP
+          env:
+            - name: RABBIT_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: rabbit_host
+                  name: credentials-rabbitqm
+            - name: RABBIT_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: rabbit_port
+                  name: credentials-rabbitqm
+            - name: RABBIT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: rabbit_username
+                  name: credentials-rabbitqm
+            - name: RABBIT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: rabbit_password
+                  name: credentials-rabbitqm
+            - name: MANAGEMENT_SERVICE_URL
+              value: http://sensor-management-service:81
+
+      restartPolicy: Always
+---

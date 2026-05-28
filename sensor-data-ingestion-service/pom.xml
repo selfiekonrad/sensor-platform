@@ -64,6 +64,7 @@
                                 <builder>paketobuildpacks/builder-jammy-tiny</builder>
                                 <env>
                                     <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+                                    <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>-Ob</BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
                                 </env>
                             </image>
                         </configuration>

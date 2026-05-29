@@ -19,6 +19,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -68,14 +69,12 @@ class SensorRegistrationControllerTest {
     }
 
     @Test
-    void validateApiKey_unauthorized_returns401() throws Exception {
+    void validateApiKey_unauthorized_propagatesException() throws Exception {
         SensorValidationRequest request = new SensorValidationRequest(sensorId, "bad-key");
         doThrow(SensorUnauthorizedException.invalidApiKey())
                 .when(registrationService).validateApiKey(sensorId, "bad-key");
 
-        ResponseEntity<Void> response = controller.validateApiKey(request);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
-        assertThat(response.getBody()).isNull();
+        assertThatThrownBy(() -> controller.validateApiKey(request))
+                .isInstanceOf(SensorUnauthorizedException.class);
     }
 }

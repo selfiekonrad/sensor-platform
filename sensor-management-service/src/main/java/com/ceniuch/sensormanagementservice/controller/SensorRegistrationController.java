@@ -7,7 +7,6 @@ import com.ceniuch.sensormanagementservice.model.SensorValidationRequest;
 import com.ceniuch.sensormanagementservice.service.SensorRegistrationService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,13 +36,9 @@ public class SensorRegistrationController {
     }
 
     @PostMapping(value = "/validate", consumes = "application/json")
-    public ResponseEntity<Void> validateApiKey(@Valid @RequestBody SensorValidationRequest request) {
-        try {
-            registrationService.validateApiKey(request.sensorId(), request.apiKey());
-            return ResponseEntity.noContent().build();
-        } catch (SensorUnauthorizedException e) {
-            log.info("Validation failed for sensor {}: {}", request.sensorId(), e.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+    public ResponseEntity<Void> validateApiKey(@Valid @RequestBody SensorValidationRequest request)
+            throws SensorUnauthorizedException {
+        registrationService.validateApiKey(request.sensorId(), request.apiKey());
+        return ResponseEntity.noContent().build();
     }
 }

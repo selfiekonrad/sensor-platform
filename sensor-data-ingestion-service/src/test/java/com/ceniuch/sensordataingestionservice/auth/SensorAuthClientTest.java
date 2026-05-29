@@ -1,5 +1,6 @@
 package com.ceniuch.sensordataingestionservice.auth;
 
+import com.ceniuch.common.exceptions.AuthServiceUnavailableException;
 import com.ceniuch.common.exceptions.SensorUnauthorizedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
 
+import java.io.IOException;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -15,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withException;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 import static org.hamcrest.Matchers.containsString;
 
@@ -58,13 +61,24 @@ class SensorAuthClientTest {
     }
 
     @Test
-    void validate_managementReturns500_throwsIllegalState() {
+    void validate_managementReturns500_throwsAuthServiceUnavailable() {
         UUID sensorId = UUID.randomUUID();
         server.expect(requestTo("http://localhost:8081/api/validate"))
                 .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR));
 
         assertThatThrownBy(() -> client.validate(sensorId, "any-key"))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessageContaining("Validation call failed");
+                .isInstanceOf(AuthServiceUnavailableException.class)
+                .hasMessageContaining("unexpected status");
+    }
+
+    @Test
+    void validate_managementUnreachable_throwsAuthServiceUnavailable() {
+        UUID sensorId = UUID.randomUUID();
+        server.expect(requestTo("http://localhost:8081/api/validate"))
+                .andRespond(withException(new IOException("connection refused")));
+
+        assertThatThrownBy(() -> client.validate(sensorId, "any-key"))
+                .isInstanceOf(AuthServiceUnavailableException.class)
+                .hasMessageContaining("unreachable");
     }
 }

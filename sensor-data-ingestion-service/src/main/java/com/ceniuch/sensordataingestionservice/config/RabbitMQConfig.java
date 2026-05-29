@@ -3,6 +3,7 @@ package com.ceniuch.sensordataingestionservice.config;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
@@ -16,9 +17,15 @@ public class RabbitMQConfig {
     public static final String SENSOR_EXCHANGE = "sensor-exchange";
     public static final String SENSOR_ROUTING_KEY = "sensor.data.*";
 
+    // Must match the consumer's declaration (sensor-data-processing-service) so both
+    // services declare the queue with identical arguments (avoids PRECONDITION_FAILED).
+    public static final String DEAD_LETTER_EXCHANGE = "sensor-data-dlx";
+
     @Bean
     public Queue sensorQueue() {
-        return new Queue(SENSOR_QUEUE, true);
+        return QueueBuilder.durable(SENSOR_QUEUE)
+                .withArgument("x-dead-letter-exchange", DEAD_LETTER_EXCHANGE)
+                .build();
     }
 
     @Bean

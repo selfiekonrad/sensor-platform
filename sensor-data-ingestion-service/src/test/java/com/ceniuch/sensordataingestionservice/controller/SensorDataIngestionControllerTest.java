@@ -21,6 +21,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
@@ -72,15 +73,12 @@ class SensorDataIngestionControllerTest {
     }
 
     @Test
-    void ingestSensorData_serviceThrowsUnauthorized_returns401WithoutBody() throws Exception {
+    void ingestSensorData_serviceThrowsUnauthorized_propagatesException() throws Exception {
         when(ingestionService.ingest(any(SensorRequest.class)))
                 .thenThrow(SensorUnauthorizedException.invalidApiKey());
 
-        ResponseEntity<SensorDataResponseDto> response =
-                controller.ingestSensorData(sensorData, "bad-key", null);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
-        assertThat(response.getBody()).isNull();
+        assertThatThrownBy(() -> controller.ingestSensorData(sensorData, "bad-key", null))
+                .isInstanceOf(SensorUnauthorizedException.class);
     }
 
     @Test

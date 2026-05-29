@@ -5,11 +5,11 @@ resources:
   - credentials/credentials-rabbitqm.yaml
   - credentials/credentials-db.yaml
   - sensor-data-ingestion-service/sensor-data-ingestion.yaml
-  - sensor-data-ingestion-service/sensor-data-ingestion-JVM.yaml
+  - sensor-data-ingestion-service/sensor-data-ingestion-jvm.yaml
   - sensor-data-processing-service/sensor-data-processing.yaml
   - sensor-data-processing-service/sdp-hpa.yaml
   - sensor-management-service/sensor-management.yaml
-  - sensor-management-service/sensor-management-JVM.yaml
+  - sensor-management-service/sensor-management-jvm.yaml
   - sensor-query-service/sensor-query.yaml
   - db/maria-db.yaml
   - networking/gateway.yaml

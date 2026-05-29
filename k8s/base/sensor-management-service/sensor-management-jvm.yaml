@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sensor-management-service-JVM
+  name: sensor-management-service-jvm
   labels:
-    app: sensor-management-service-JVM
+    app: sensor-management-service-jvm
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sensor-management-service-JVM
+      app: sensor-management-service-jvm
   template:
     metadata:
-      name: sensor-management-service-JVM
+      name: sensor-management-service-jvm
       labels:
-        app: sensor-management-service-JVM
+        app: sensor-management-service-jvm
     spec:
       containers:
-        - name: sensor-management-service-JVM
+        - name: sensor-management-service-jvm
           image: ghcr.io/selfiekonrad/sensor-management-service:0.0.3
           imagePullPolicy: IfNotPresent
           ports:
@@ -55,19 +55,3 @@ spec:
                   key: db_password
                   name: credentials-db
       restartPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: sensor-management-service
-  labels:
-    app: sensor-management-service
-spec:
-  type: ClusterIP
-  selector:
-    app: sensor-management-service
-  ports:
-    - name: http
-      port: 81
-      targetPort: 8081
-      protocol: TCP

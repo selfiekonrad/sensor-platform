@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: sensor-data-ingestion-service
-          image: ghcr.io/selfiekonrad/sensor-data-ingestion-service:0.0.3
+          image: sensor-data-ingestion-service:0.0.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3435

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sensor-management-service
+  name: sensor-management-service-JVM
   labels:
-    app: sensor-management-service
+    app: sensor-management-service-JVM
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sensor-management-service
+      app: sensor-management-service-JVM
   template:
     metadata:
-      name: sensor-management-service
+      name: sensor-management-service-JVM
       labels:
-        app: sensor-management-service
+        app: sensor-management-service-JVM
     spec:
       containers:
-        - name: sensor-management-service
+        - name: sensor-management-service-JVM
           image: ghcr.io/selfiekonrad/sensor-management-service:0.0.3
           imagePullPolicy: IfNotPresent
           ports:

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sensor-data-ingestion-service
+  name: sensor-data-ingestion-service-JVM
   labels:
-    app: sensor-data-ingestion-service
+    app: sensor-data-ingestion-service-JVM
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sensor-data-ingestion-service
+      app: sensor-data-ingestion-service-JVM
   template:
     metadata:
-      name: sensor-data-ingestion-service
+      name: sensor-data-ingestion-service-JVM
       labels:
-        app: sensor-data-ingestion-service
+        app: sensor-data-ingestion-service-JVM
     spec:
       containers:
-        - name: sensor-data-ingestion-service
+        - name: sensor-data-ingestion-service-JVM
           image: ghcr.io/selfiekonrad/sensor-data-ingestion-service:0.0.3
           imagePullPolicy: IfNotPresent
           ports:

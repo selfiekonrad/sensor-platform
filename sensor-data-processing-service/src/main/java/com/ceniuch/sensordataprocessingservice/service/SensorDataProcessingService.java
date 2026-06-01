@@ -38,7 +38,7 @@ public class SensorDataProcessingService {
 
         SensorReading reading = toReading(event);
         SensorReading saved = readingRepository.save(reading);
-        log.debug("Persisted reading {} for sensor {}", saved.getId(), saved.getSensorId());
+        log.info("Persisted reading {} for sensor {}", saved.getId(), saved.getSensorId());
 
         anomalyDetector.check(saved).ifPresent(alert -> {
             alertRepository.save(alert);

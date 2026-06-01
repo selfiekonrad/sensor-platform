@@ -62,23 +62,23 @@ spec:
             - name: RABBIT_HOST
               valueFrom:
                 secretKeyRef:
-                  key: rabbit_host
-                  name: credentials-rabbitqm
+                  key: host
+                  name: my-rabbit-default-user
             - name: RABBIT_PORT
               valueFrom:
                 secretKeyRef:
-                  key: rabbit_port
-                  name: credentials-rabbitqm
+                  key: port
+                  name: my-rabbit-default-user
             - name: RABBIT_USERNAME
               valueFrom:
                 secretKeyRef:
-                  key: rabbit_username
-                  name: credentials-rabbitqm
+                  key: username
+                  name: my-rabbit-default-user
             - name: RABBIT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: rabbit_password
-                  name: credentials-rabbitqm
+                  key: password
+                  name: my-rabbit-default-user
             - name: DB_URL
               valueFrom:
                 secretKeyRef:

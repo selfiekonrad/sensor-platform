@@ -4,28 +4,25 @@ resources:
   - definition.yaml
   - credentials/credentials-db.yaml
   - sensor-data-ingestion-service/sensor-data-ingestion.yaml
-  - sensor-data-ingestion-service/sensor-data-ingestion-jvm.yaml
   - sensor-data-processing-service/sensor-data-processing.yaml
   - sensor-management-service/sensor-management.yaml
-  - sensor-management-service/sensor-management-jvm.yaml
   - sensor-query-service/sensor-query.yaml
   - db/maria-db.yaml
   - networking/gateway.yaml
   - networking/httproute.yaml
 
 # Registry + tag for the native images are set in one place. Deployments reference
-# bare image names; the -jvm deployments use explicit ghcr literals and are left
-# untouched by these mappings.
+# bare image names;
 images:
   - name: sensor-data-ingestion-service
     newName: ghcr.io/selfiekonrad/sensor-data-ingestion-service
-    newTag: "0.0.4"
+    newTag: "0.0.5"
   - name: sensor-data-processing-service
     newName: ghcr.io/selfiekonrad/sensor-data-processing-service
-    newTag: "0.0.4"
+    newTag: "0.0.5"
   - name: sensor-management-service
     newName: ghcr.io/selfiekonrad/sensor-management-service
-    newTag: "0.0.4"
+    newTag: "0.0.5"
   - name: sensor-query-service
     newName: ghcr.io/selfiekonrad/sensor-query-service
-    newTag: "0.0.4"
+    newTag: "0.0.5"

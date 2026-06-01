@@ -21,7 +21,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: sensor-data-processing-service
-          image: ghcr.io/selfiekonrad/sensor-data-processing-service:0.0.5
+          image: sensor-data-processing-service
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false

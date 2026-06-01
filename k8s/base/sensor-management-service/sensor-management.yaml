@@ -21,7 +21,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: sensor-management-service
-          image: ghcr.io/selfiekonrad/sensor-management-service:0.0.5
+          image: sensor-management-service
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false

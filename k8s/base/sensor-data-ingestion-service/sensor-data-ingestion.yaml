@@ -21,7 +21,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: sensor-data-ingestion-service
-          image: ghcr.io/selfiekonrad/sensor-data-ingestion-service:0.0.5
+          image: sensor-data-ingestion-service
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false

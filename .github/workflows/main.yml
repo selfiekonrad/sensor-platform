@@ -123,3 +123,14 @@ jobs:
 
       - name: Push to GHCR
         run: docker push ghcr.io/${{ env.OWNER_LC }}/${{ matrix.service }}:${{ env.APP_VERSION }}
+
+      # JVM-Vergleichsbuild nur fuer processing-service (Auswertung Kap. 6: Native vs. JVM).
+      - name: Build JVM image (processing only, for comparison)
+        if: matrix.service == 'sensor-data-processing-service'
+        run: |
+          mvn spring-boot:build-image -pl ${{ matrix.service }} -DskipTests \
+            -Dspring-boot.build-image.imageName=ghcr.io/${{ env.OWNER_LC }}/${{ matrix.service }}:${{ env.APP_VERSION }}-jvm
+
+      - name: Push JVM image to GHCR
+        if: matrix.service == 'sensor-data-processing-service'
+        run: docker push ghcr.io/${{ env.OWNER_LC }}/${{ matrix.service }}:${{ env.APP_VERSION }}-jvm

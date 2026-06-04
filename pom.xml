@@ -6,7 +6,7 @@
 
     <groupId>com.ceniuch</groupId>
     <artifactId>sensor-platform-bom</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
     <packaging>pom</packaging>
     <name>sensor-platform-bom</name>
 

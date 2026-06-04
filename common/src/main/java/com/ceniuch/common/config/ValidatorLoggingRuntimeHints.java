@@ -16,7 +16,10 @@ public class ValidatorLoggingRuntimeHints implements RuntimeHintsRegistrar {
         for (String type : GENERATED_TYPES) {
             hints.reflection().registerTypeIfPresent(classLoader, type,
                     MemberCategory.INVOKE_DECLARED_CONSTRUCTORS,
-                    MemberCategory.INVOKE_DECLARED_METHODS);
+                    MemberCategory.INVOKE_DECLARED_METHODS,
+                    // JBoss Logging reads Messages_$bundle.INSTANCE reflectively
+                    // (Messages.getBundle() -> getField("INSTANCE").get(null)).
+                    MemberCategory.ACCESS_DECLARED_FIELDS);
         }
     }
 }

@@ -15,7 +15,7 @@ import { SensorType } from './types.ts';
 import { hosts, registerSensor, seedThreshold, sendReading, nextValue } from './lib.ts';
 
 const POOL_SIZE = parseInt('20', 10);
-const PEAK_VUS = parseInt('50', 10);
+const PEAK_VUS = parseInt('40', 10);
 const ANOMALY_PROB = parseFloat('0.4');
 const THINK = parseFloat('0.1');
 

@@ -26,7 +26,6 @@ export const QUERY_URL = '';
 
 export const hosts: Record<string, string> = { [HOST]: RESOLVE_IP };
 
-// Custom metrics (the `true` flag renders the trend as a duration).
 export const registerTrend = new Trend('register_duration', true);
 export const thresholdTrend = new Trend('threshold_duration', true);
 export const ingestTrend = new Trend('ingest_duration', true);

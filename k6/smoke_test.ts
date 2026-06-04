@@ -1,12 +1,5 @@
-// End-to-end smoke test: a single pass through the whole platform.
-//
 //   register -> seed threshold -> ingest one in-range + one anomalous reading
 //   -> (if QUERY_URL set) verify the read path reflects both, including the alert.
-//
-// Fast and deterministic, suitable as a CI gate / post-deploy check.
-//
-//   k6 run smoke_test.ts                                   # write path only
-//   QUERY_URL=http://localhost:8082 k6 run smoke_test.ts   # full read+write path
 
 import { check, fail } from 'k6';
 import { Options } from 'k6/options';

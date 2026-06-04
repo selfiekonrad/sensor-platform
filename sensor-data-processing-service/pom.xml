@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.ceniuch</groupId>
         <artifactId>sensor-platform-bom</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -81,7 +81,7 @@
                                 <builder>paketobuildpacks/builder-jammy-tiny</builder>
                                 <env>
                                     <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-                                    <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>-O3</BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
+                                    <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>-O2</BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
                                 </env>
                             </image>
                         </configuration>

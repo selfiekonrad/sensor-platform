@@ -18,7 +18,7 @@ import { Trend, Counter } from 'k6/metrics';
 import { Sensor, SensorType, Unit, RegisterResponse, ReadingDto } from './types.ts';
 
 const HOST = 'sensor-platform.local';
-const PORT = '54101';
+const PORT = '56986';
 const RESOLVE_IP = '127.0.0.1';
 
 export const BASE_URL = `http://${HOST}:${PORT}`;

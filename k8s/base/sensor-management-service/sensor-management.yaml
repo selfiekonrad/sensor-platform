@@ -94,6 +94,6 @@ spec:
     app: sensor-management-service
   ports:
     - name: http
-      port: 81
+      port: 80
       targetPort: 8081
       protocol: TCP

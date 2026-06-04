@@ -18,14 +18,12 @@ import { Trend, Counter } from 'k6/metrics';
 import { Sensor, SensorType, Unit, RegisterResponse, ReadingDto } from './types.ts';
 
 const HOST = 'sensor-platform.local';
-const PORT = '56986';
+const PORT = '58412';
 const RESOLVE_IP = '127.0.0.1';
 
 export const BASE_URL = `http://${HOST}:${PORT}`;
 export const QUERY_URL = '';
 
-// DNS override: keep the Host header as the gateway hostname (needed for routing)
-// while sending traffic to RESOLVE_IP. Spread into each test's `options`.
 export const hosts: Record<string, string> = { [HOST]: RESOLVE_IP };
 
 // Custom metrics (the `true` flag renders the trend as a duration).
@@ -112,8 +110,6 @@ export function nextValue(low: number, high: number, anomalyProb: number): { val
     return { value: low + Math.random() * (high - low), anomaly: false };
 }
 
-// --- read path (query service); only usable when QUERY_URL is set ---
-
 export function getCurrent(sensorId: string) {
     return http.get(`${QUERY_URL}/api/sensors/${sensorId}/current`, { tags: { endpoint: 'query-current' } });
 }
@@ -127,8 +123,6 @@ export function getAlerts() {
     return http.get(`${QUERY_URL}/api/alerts`, { tags: { endpoint: 'query-alerts' } });
 }
 
-// Polls the current-reading endpoint until the async pipeline has persisted a
-// reading for the sensor, or the timeout elapses. Returns the reading or null.
 export function waitForCurrent(sensorId: string, timeoutSec: number = 15): ReadingDto | null {
     const deadline = Date.now() + timeoutSec * 1000;
     while (Date.now() < deadline) {

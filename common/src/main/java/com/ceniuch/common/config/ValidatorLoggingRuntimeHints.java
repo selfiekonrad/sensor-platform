@@ -11,6 +11,11 @@ public class ValidatorLoggingRuntimeHints implements RuntimeHintsRegistrar {
             "org.hibernate.validator.internal.util.logging.Messages_$bundle"
     };
 
+    private static final String[] CONSTRAINT_VALIDATORS = {
+            "org.hibernate.validator.internal.constraintvalidators.bv.NotNullValidator",
+            "org.hibernate.validator.internal.constraintvalidators.bv.NotBlankValidator"
+    };
+
     @Override
     public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
         for (String type : GENERATED_TYPES) {
@@ -20,6 +25,10 @@ public class ValidatorLoggingRuntimeHints implements RuntimeHintsRegistrar {
                     // JBoss Logging reads Messages_$bundle.INSTANCE reflectively
                     // (Messages.getBundle() -> getField("INSTANCE").get(null)).
                     MemberCategory.ACCESS_DECLARED_FIELDS);
+        }
+        for (String type : CONSTRAINT_VALIDATORS) {
+            hints.reflection().registerTypeIfPresent(classLoader, type,
+                    MemberCategory.INVOKE_DECLARED_CONSTRUCTORS);
         }
     }
 }

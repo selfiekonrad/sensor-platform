@@ -10,14 +10,6 @@ import java.time.Duration;
 
 @Configuration
 public class RestClientConfig {
-
-    /**
-     * Bounded connect/read timeouts so the synchronous auth call on the ingestion
-     * hot path can never hang indefinitely when the management service is slow or
-     * unreachable. A timeout surfaces as a {@code ResourceAccessException}, which
-     * {@code SensorAuthClient} translates into a 503. Built on the JDK HttpClient
-     * (no Boot-specific helpers) so it is stable across versions and GraalVM-safe.
-     */
     @Bean
     public RestClient.Builder restClientBuilder() {
         HttpClient httpClient = HttpClient.newBuilder()

@@ -9,7 +9,6 @@
 //   PEAK_VUS=100 HOLD=3m POOL_SIZE=50 k6 run load_test.ts
 //
 // Tunables (env): POOL_SIZE, PEAK_VUS, RAMP, HOLD, ANOMALY_PROB, THINK.
-
 import { sleep } from 'k6';
 import { Options } from 'k6/options';
 import { SensorType } from './types.ts';
@@ -18,7 +17,7 @@ import { hosts, registerSensor, seedThreshold, sendReading, nextValue } from './
 const POOL_SIZE = parseInt('20', 10);
 const PEAK_VUS = parseInt('50', 10);
 const ANOMALY_PROB = parseFloat('0.1');
-const THINK = parseFloat('0.1'); // per-iteration think time in seconds
+const THINK = parseFloat('0.1');
 
 const TEMPERATURE_LOW = 10;
 const TEMPERATURE_HIGH = 30;

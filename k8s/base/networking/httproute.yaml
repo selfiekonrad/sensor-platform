@@ -8,9 +8,6 @@ spec:
   hostnames:
     - "sensor-platform.local"
   rules:
-    # Write path: ingestion. The /api/sensors/data prefix is longer (and thus
-    # higher precedence) than the query service's /api/sensors prefix below, so
-    # POSTs to /api/sensors/data always land here.
     - matches:
         - path:
             type: PathPrefix
@@ -18,7 +15,6 @@ spec:
       backendRefs:
         - name: sensor-data-ingestion-service
           port: 80
-    # Management: registration + thresholds.
     - matches:
         - path:
             type: PathPrefix
@@ -28,9 +24,7 @@ spec:
             value: /api/threshold
       backendRefs:
         - name: sensor-management-service
-          port: 81
-    # Read path: query service. Scoped to GET so it cannot shadow the ingestion
-    # POST route; covers /api/sensors/{id}/current, /history and /api/alerts.
+          port: 80
     - matches:
         - path:
             type: PathPrefix

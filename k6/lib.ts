@@ -47,7 +47,7 @@ export function unitFor(type: SensorType): Unit {
 // Registers a sensor and returns it with the issued API key, or null on failure
 // (callers must handle null instead of crashing the whole VU iteration).
 export function registerSensor(type: SensorType): Sensor | null {
-    const name = `${type.toLowerCase()}-${Date.now()}-${__VU}-${__ITER}-${Math.floor(Math.random() * 1e6)}`;
+    const name = `${type.toLowerCase()}-${Date.now()}-${Math.floor(Math.random() * 1e6)}`;
     const res = http.post(`${BASE_URL}/api/register`, JSON.stringify({ name, type }), {
         headers: JSON_HEADERS,
         tags: { endpoint: 'register' },

@@ -16,7 +16,7 @@ import { hosts, registerSensor, seedThreshold, sendReading, nextValue } from './
 
 const POOL_SIZE = parseInt('20', 10);
 const PEAK_VUS = parseInt('50', 10);
-const ANOMALY_PROB = parseFloat('0.1');
+const ANOMALY_PROB = parseFloat('0.4');
 const THINK = parseFloat('0.1');
 
 const TEMPERATURE_LOW = 10;
